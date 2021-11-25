@@ -13,6 +13,7 @@
   "files": [
     "lib"
   ],
+  
   "scripts": {
     "test": "echo \"Error: run tests from root\""
   },
