@@ -16,5 +16,9 @@
   "scripts": {
     "test": "echo \"Error: run tests from utils\""
   },
-  "gitHead": "fe381cd52bfd5c48e1753122767dd6aa6dbd52cd"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "543775919e243743f789986382af5f05c7639e91"
 }
