@@ -1,6 +1,6 @@
 {
   "name": "@cruise-cli/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "w_gantian <w_gantian@beisen.com>",
   "homepage": "",
@@ -17,6 +17,6 @@
     "test": "echo \"Error: run tests from root\""
   },
   "dependencies": {
-    "@cruise-cli/utils": "^0.0.1"
+    "@cruise-cli/utils": "^0.0.2"
   }
 }
