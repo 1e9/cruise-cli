@@ -6,6 +6,9 @@
   "homepage": "",
   "license": "ISC",
   "main": "lib/index.js",
+  "bin": {
+    "cruise": "bin/index.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -18,5 +21,6 @@
   },
   "dependencies": {
     "@cruise-cli/utils": "^0.0.2"
-  }
+  },
+  "gitHead": "0ceee43d2e756e243d1cfbbb7d6e310c2d87819a"
 }
