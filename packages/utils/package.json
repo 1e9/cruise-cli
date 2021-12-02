@@ -2,8 +2,9 @@
   "name": "@cruise-cli/utils",
   "version": "0.0.5",
   "description": "> TODO: description",
-  "author": "w_gantian <w_gantian@beisen.com>",
+  "author": "cruise <1051433037@qq.com>",
   "homepage": "",
+  "type": "module",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -20,5 +21,10 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "543775919e243743f789986382af5f05c7639e91"
+  "gitHead": "543775919e243743f789986382af5f05c7639e91",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "merge-export-default": "^1.0.2",
+    "ramda": "^0.27.1"
+  }
 }

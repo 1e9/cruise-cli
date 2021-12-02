@@ -1,7 +1,3 @@
 'use strict';
 
-module.exports = utils;
-
-function utils() {
-    // TODO
-}
+export * from './npm-info.js';

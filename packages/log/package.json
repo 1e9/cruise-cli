@@ -1,0 +1,36 @@
+{
+  "name": "@cruise-cli/log",
+  "version": "0.0.5",
+  "description": "cli log",
+  "type": "module",
+  "keywords": [
+    "log"
+  ],
+  "author": "1e9 <1051433037@qq.com>",
+  "homepage": "https://github.com/1e9/cruise-cli#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1e9/cruise-cli.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/1e9/cruise-cli/issues"
+  },
+  "dependencies": {
+    "ramda": "^0.27.1"
+  }
+}
