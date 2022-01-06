@@ -1,0 +1,37 @@
+{
+  "name": "@cruise-cli/esm-get-path",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "get __dirname, __filename in ESModule project",
+  "keywords": [
+    "esModule",
+    "esm paths",
+    "__dirname",
+    "__filename",
+    "getPath"
+  ],
+  "author": "1e9 <1051433037@qq.com>",
+  "homepage": "https://github.com/1e9/cruise-cli#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1e9/cruise-cli.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/1e9/cruise-cli/issues"
+  }
+}

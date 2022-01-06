@@ -8,6 +8,7 @@
   "license": "ISC",
   "main": "lib/index.js",
   "bin": {
+    "cruise": "bin/index.js",
     "cr": "bin/index.js"
   },
   "directories": {
@@ -21,12 +22,14 @@
     "test": "echo \"Error: run tests from root\""
   },
   "dependencies": {
+    "@cruise-cli/commands": "file:../commands",
     "@cruise-cli/log": "file:../log",
+    "@cruise-cli/esm-get-path": "file:../esm-get-path",
     "@cruise-cli/utils": "file:../utils",
     "colors": "^1.4.0",
+    "commander": "^8.3.0",
     "dotenv": "^10.0.0",
     "import-local": "^3.0.3",
-    "minimist": "^1.2.5",
     "os-homedir": "^2.0.0",
     "path-exists": "^5.0.0",
     "ramda": "^0.27.1",
@@ -37,6 +40,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "543775919e243743f789986382af5f05c7639e91",
-  "devDependencies": {}
+  "gitHead": "543775919e243743f789986382af5f05c7639e91"
 }
