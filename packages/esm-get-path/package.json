@@ -1,6 +1,6 @@
 {
   "name": "@cruise-cli/esm-get-path",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "get __dirname, __filename in ESModule project",
   "keywords": [
