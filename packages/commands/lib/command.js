@@ -6,7 +6,6 @@ import log from '@cruise-cli/log';
 
 export default class Command {
   constructor(args) {
-    console.log('====', args);
     if (args?.length < 3) {
       throw new Error('必须传入最少一个参数');
     }
@@ -20,9 +19,10 @@ export default class Command {
     });
   }
 
-  initArgs([projectName, options, commandObj] = []) {
+  initArgs(args) {
+    const [commandObj, ...argv] = args.reverse();
     this._cmd = commandObj;
-    this._argv = [projectName, options];
+    this._argv = argv;
   }
   checkNodeVersion() {
     const nodeVersion = '14.0.0';
@@ -34,7 +34,7 @@ export default class Command {
   init() {
     throw new Error('init 必须实现');
   }
-  
+
   exec() {
     throw new Error('exec 必须实现');
   }

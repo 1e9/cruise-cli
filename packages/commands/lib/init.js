@@ -6,20 +6,19 @@ import { spawn } from 'node:child_process';
 import Command from './command.js';
 
 class InitCommand extends Command {
-  constructor(args) {
-    super(args);
-  }
+  // constructor(args) {
+  //   super(args);
+  // }
 
   init() {
-    this.projectName = this._argv[0];
-    this.force = !!this._cmd.force;
-    console.log('InitCommand init this.projectName', this.projectName);
+    this.projectName = this._argv[1];
+    this.force = !!this._argv[0].force;
     log.verbose('projectName', this.projectName);
     log.verbose('force', this.force);
   }
 
   exec() {
-    console.log('init object');
+    console.log('ece object');
   }
 }
 

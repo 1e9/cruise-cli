@@ -22,9 +22,10 @@
     "test": "echo \"Error: run tests from root\""
   },
   "dependencies": {
+    "@cruise-cli/esm-get-path": "file:../esm-get-path",
     "@cruise-cli/commands": "file:../commands",
     "@cruise-cli/log": "file:../log",
-    "@cruise-cli/esm-get-path": "file:../esm-get-path",
+    "@cruise-cli/exec": "file:../exec",
     "@cruise-cli/utils": "file:../utils",
     "colors": "^1.4.0",
     "commander": "^8.3.0",

@@ -1,21 +1,23 @@
 {
-  "name": "@cruise-cli/log",
+  "name": "@cruise-cli/exec",
   "version": "0.0.5",
-  "description": "cli log",
-  "type": "module",
+  "description": "exec bash",
   "keywords": [
-    "log"
+    "exec",
+    "bash"
   ],
   "author": "1e9 <1051433037@qq.com>",
   "homepage": "https://github.com/1e9/cruise-cli#readme",
   "license": "ISC",
-  "main": "lib/index.js",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "publishConfig": {
     "access": "public"
@@ -30,8 +32,10 @@
   "bugs": {
     "url": "https://github.com/1e9/cruise-cli/issues"
   },
+  "devDependencies": {
+    "@cruise/cli": "file:../log"
+  },
   "dependencies": {
-    "npmlog": "^6.0.0",
-    "ramda": "^0.27.1"
+    "npminstall": "^5.3.1"
   }
 }

@@ -1,3 +1,3 @@
-declare const esmGetPath<T>(importMetaUrl: T, path: T): T => T;
+declare const esmGetPath(importMetaUrl: string, path: string) => string;
 
 export default esmGetPath;
