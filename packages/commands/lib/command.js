@@ -6,9 +6,6 @@ import log from '@cruise-cli/log';
 
 export default class Command {
   constructor(args) {
-    if (args?.length < 3) {
-      throw new Error('必须传入最少一个参数');
-    }
     let runner = new Promise((resolve, reject) => {
       let chain = Promise.resolve();
       chain = chain.then(this.checkNodeVersion);
@@ -20,7 +17,7 @@ export default class Command {
   }
 
   initArgs(args) {
-    const [commandObj, ...argv] = args.reverse();
+    const [commandObj, ...argv] = [...args].reverse();
     this._cmd = commandObj;
     this._argv = argv;
   }

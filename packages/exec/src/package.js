@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { sync } from 'pkg-dir';
+import { pathExistsSync } from 'path-exists';
 import npmInstall from 'npminstall';
 export default class Package {
   constructor(packageObj) {
@@ -13,10 +14,14 @@ export default class Package {
     this.packageVersion = packageVersion;
   }
   exists() {
-    console.log('Exists');
+    if (this.storeDir) {
+      // 验证版本package是否有新版
+    } else {
+      return pathExistsSync(this.targetPath);
+    }
   }
   install() {
-    npmInstall({
+    return npmInstall({
       root: this.targetPath,
       storeDir: this.storeDir,
       registry: 'https://registry.npmjs.org',
@@ -26,6 +31,6 @@ export default class Package {
   update() {}
   getRootPath() {
     const dir = sync(this.targetPath);
-    console.log(this.targetPath, '=========', dir);
+    return dir || this.targetPath;
   }
 }

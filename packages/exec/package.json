@@ -32,10 +32,10 @@
   "bugs": {
     "url": "https://github.com/1e9/cruise-cli/issues"
   },
-  "devDependencies": {
-    "@cruise/cli": "file:../log"
-  },
   "dependencies": {
-    "npminstall": "^5.3.1"
+    "@cruise-cli/commands": "file:../commands",
+    "@cruise-cli/log": "file:../log",
+    "npminstall": "^5.3.1",
+    "path-exists": "^5.0.0"
   }
 }

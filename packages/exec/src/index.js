@@ -1,27 +1,34 @@
 import path from 'node:path';
+import path from 'node:child_process';
+import * as commands from '@cruise-cli/commands';
+
 import Package from './package.js';
 
 const SETTINGS = {
-  init: '@cruise-cli/commands',
+  init: '@cruise-cli/esm-get-path',
 };
 
 export default function exec(...args) {
-  let targetPath = process.env.CR_TARGET_PATH;
+  const [cmdObj, options] = [...args].reverse();
+  let targetPath = options.targetPath || process.env.CR_TARGET_PATH;
   const homePath = process.env.CR_HOME_PATH;
   let storeDir = '';
-  const cmdObj = args[args.length - 1];
   const cmdName = cmdObj.name();
-  console.log('12233', !targetPath);
   if (!targetPath) {
-    targetPath = path.resolve(homePath, 'dependencies')
-    storeDir = path.resolve(targetPath, 'node_modules')
-    console.log('====', targetPath, storeDir);
+    // targetPath = path.resolve(homePath, 'dependencies');
+    // storeDir = path.resolve(targetPath, 'node_modules');
+    // const pkg = new Package({
+    //   targetPath,
+    //   storeDir,
+    //   packageName: SETTINGS[cmdName],
+    //   packageVersion: 'latest',
+    // });
+    // if (pkg.exists()) {
+    //   pkg.update();
+    // } else {
+    //   pkg.install();
+    // }
+  } else {
+    commands[cmdName].apply(null, args);
   }
-  const pkg = new Package({
-    targetPath,
-    storeDir,
-    packageName: SETTINGS[cmdName],
-    packageVersion: 'latest',
-  });
-  pkg.getRootPath();
 }

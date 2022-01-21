@@ -1,5 +1,6 @@
 'use strict';
-
+import fs from 'node:fs';
+import inquirer from 'inquirer';
 import log from '@cruise-cli/log';
 import { spawn } from 'node:child_process';
 
@@ -18,7 +19,19 @@ class InitCommand extends Command {
   }
 
   exec() {
-    console.log('ece object');
+    try {
+      this.prepare();
+    } catch (e) {}
+  }
+
+  prepare() {
+    const cwd = process.cwd();
+    const fileList = fs.readdirSync(cwd);
+    inquirer.prompt([{
+      type: 'input',
+      name: 'name',
+      message: 'input name',
+    }])
   }
 }
 

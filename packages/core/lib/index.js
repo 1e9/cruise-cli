@@ -26,12 +26,12 @@ const initCheckMap = {
   initEnv: () => {
     process.env.CR_LOG_LEVEL = 'info';
     process.env.CR_TARGET_PATH = '';
-    process.env.CR_HOME_PATH = `${homeDir}/.cruise-cli`;
+    process.env.CR_HOME_PATH = `${homeDir}/cruise-cli`;
   },
   rootUsr: rootCheck,
   nodeVersion: () => {
-    if (!semver.gte(process.version, '14.0.0')) {
-      throw new Error(colors.red(`cruise-cli 需要 v${'14.0.0'} 及以上版本的 node.js`));
+    if (!semver.gte(process.version, '14.18.2')) {
+      throw new Error(colors.red(`cruise-cli 需要 v${'14.18.2'} 及以上版本的 node.js`));
     }
   },
   homeDir: () => {

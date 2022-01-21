@@ -35,6 +35,8 @@
   "dependencies": {
     "@cruise-cli/log": "file:../log",
     "colors": "^1.4.0",
+    "inquirer": "^8.2.0",
+    "ramda": "^0.27.2",
     "semver": "^7.3.5"
   }
 }
