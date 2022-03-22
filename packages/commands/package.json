@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "@cruise-cli/log": "file:../log",
+    "@cruise-cli/utils": "file:../utils",
+    "axios": "^0.26.0",
     "colors": "^1.4.0",
     "inquirer": "^8.2.0",
     "ramda": "^0.27.2",

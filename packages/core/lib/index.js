@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import rootCheck from 'root-check';
 import semver from 'semver';
+import dotenv from 'dotenv';
 import osHomedir from 'os-homedir';
 import { Command } from 'commander';
 import { pathExistsSync } from 'path-exists';
@@ -24,8 +25,7 @@ const program = new Command();
 const initCheckMap = {
   pkgVersion: () => log.info(`current version ${currentVersion}`),
   initEnv: () => {
-    process.env.CR_LOG_LEVEL = 'info';
-    process.env.CR_TARGET_PATH = '';
+    dotenv.config({ path: getPath(import.meta.url, '../.env') });
     process.env.CR_HOME_PATH = `${homeDir}/cruise-cli`;
   },
   rootUsr: rootCheck,
@@ -88,6 +88,7 @@ const registerCommand = () => {
 export default function core(argv) {
   try {
     forEachObjIndexed((checkFuc) => checkFuc(), initCheckMap);
+    console.log(import.meta.url, '=======', process.env)
     registerCommand();
   } catch (err) {
     log.error(err.message);

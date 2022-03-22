@@ -1,5 +1,5 @@
 import path from 'node:path';
-import path from 'node:child_process';
+import { spawn } from 'node:child_process';
 import * as commands from '@cruise-cli/commands';
 
 import Package from './package.js';
@@ -14,21 +14,22 @@ export default function exec(...args) {
   const homePath = process.env.CR_HOME_PATH;
   let storeDir = '';
   const cmdName = cmdObj.name();
-  if (!targetPath) {
-    // targetPath = path.resolve(homePath, 'dependencies');
-    // storeDir = path.resolve(targetPath, 'node_modules');
-    // const pkg = new Package({
-    //   targetPath,
-    //   storeDir,
-    //   packageName: SETTINGS[cmdName],
-    //   packageVersion: 'latest',
-    // });
-    // if (pkg.exists()) {
-    //   pkg.update();
-    // } else {
-    //   pkg.install();
-    // }
-  } else {
-    commands[cmdName].apply(null, args);
-  }
+  // if (!targetPath) {
+  //   targetPath = path.resolve(homePath, 'dependencies');
+  //   storeDir = path.resolve(targetPath, 'node_modules');
+  //   const pkg = new Package({
+  //     targetPath,
+  //     storeDir,
+  //     packageName: SETTINGS[cmdName],
+  //     packageVersion: 'latest',
+  //   });
+  //   if (pkg.exists()) {
+  //     pkg.update();
+  //   } else {
+  //     pkg.install();
+  //   }
+  // } else {
+  //   // commands[cmdName].apply(null, args);
+  // }
+  spawn('node', ['-e', commands[cmdName].apply(null, args)])
 }
