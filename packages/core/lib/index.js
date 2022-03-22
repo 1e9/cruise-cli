@@ -1,7 +1,6 @@
 'use strict';
 
 import fs from 'node:fs';
-import path from 'node:path';
 import rootCheck from 'root-check';
 import semver from 'semver';
 import dotenv from 'dotenv';
