@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.CR_BASE_URL ? process.env.CR_BASE_URL : 'http://localhost:7001';
-axios.defaults.timeout = 6000;
+axios.defaults.timeout = 7000;
 axios.interceptors.request.use(
   function ({ data, ...config }) {
     // 在发送请求之前做些什么
@@ -16,4 +16,4 @@ axios.interceptors.request.use(
   }
 );
 
-export const fetch = axios;
+export const request = axios;

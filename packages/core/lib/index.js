@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import osHomedir from 'os-homedir';
 import { Command } from 'commander';
 import { pathExistsSync } from 'path-exists';
-import { forEachObjIndexed, pipe, map, prop, join, isEmpty } from 'ramda';
+import { forEachObjIndexed, isEmpty } from 'ramda';
 import colors from 'colors';
 
 import log from '@cruise-cli/log';
@@ -87,7 +87,6 @@ const registerCommand = () => {
 export default function core(argv) {
   try {
     forEachObjIndexed((checkFuc) => checkFuc(), initCheckMap);
-    console.log(import.meta.url, '=======', process.env)
     registerCommand();
   } catch (err) {
     log.error(err.message);

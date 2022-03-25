@@ -5,7 +5,7 @@ import path from 'node:path';
 import inquirer from 'inquirer';
 import semver from 'semver';
 import log from '@cruise-cli/log';
-import { fetch } from '@cruise-cli/utils';
+import { request } from '@cruise-cli/utils';
 
 import Command from './command.js';
 
@@ -35,7 +35,6 @@ class InitCommand extends Command {
   async checkDirIsEmpty() {
     const localPath = path.resolve(this.projectName || '');
 
-    console.log('first', process.env);
     // 指定目录是否存在
     const isPath = fs.pathExistsSync(localPath);
     const fileList = isPath ? fs.readdirSync(localPath) : [];
@@ -56,16 +55,16 @@ class InitCommand extends Command {
       convertProject();
     } else if (fileList?.length) {
       // 当前目录线存在项目，且项目文件夹不为空
-      await inquirer
-        .prompt([
-          {
-            type: 'confirm',
-            name: 'isInitial',
-            default: false,
-            message: '项目已存在，是否继续初始化项目',
-          },
-        ])
-        .then(({ isInitial }) => isInitial && convertProject());
+      // await inquirer
+      //   .prompt([
+      //     {
+      //       type: 'confirm',
+      //       name: 'isInitial',
+      //       default: false,
+      //       message: '项目已存在，是否继续初始化项目',
+      //     },
+      //   ])
+      //   .then(({ isInitial }) => isInitial && convertProject());
     }
   }
 
@@ -74,15 +73,15 @@ class InitCommand extends Command {
       {
         type: 'list',
         name: 'type',
-        choices: ['Project', 'Component'],
+        choices: ['project', 'component'],
         message: '请选择初始化项目类型',
       },
     ]);
-    if (type === 'Project') {
+    if (type === 'project') {
       const info = await inquirer.prompt([
         {
           type: 'input',
-          name: 'projectName',
+          name: 'name',
           message: '请输入项目名',
           validate: function (v) {
             const done = this.async();
@@ -114,8 +113,11 @@ class InitCommand extends Command {
       ]);
       return { type, ...info };
     }
-    if (type === 'Component') {
-      await fetch.get('/api/template', { email: '123@qq.com' });
+    if (type === 'component') {
+      // await require.post('/api/template', { name: 'react', type: 'component' });
+      await request.get('/api/template', { params: { type } }).then(({ data, ...res }) => {
+        console.log(data);
+      });
     }
   }
 
