@@ -25,7 +25,7 @@ const initCheckMap = {
   pkgVersion: () => log.info(`current version ${currentVersion}`),
   initEnv: () => {
     dotenv.config({ path: getPath(import.meta.url, '../.env') });
-    process.env.CR_HOME_PATH = `${homeDir}/cruise-cli`;
+    process.env.CR_HOME_PATH = homeDir;
   },
   rootUsr: rootCheck,
   nodeVersion: () => {
