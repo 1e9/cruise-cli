@@ -34,8 +34,6 @@
   },
   "dependencies": {
     "@cruise-cli/commands": "file:../commands",
-    "@cruise-cli/log": "file:../log",
-    "npminstall": "^5.3.1",
-    "path-exists": "^5.0.0"
+    "@cruise-cli/log": "file:../log"
   }
 }

@@ -2,17 +2,15 @@
 import fs from 'fs-extra';
 import axios from 'axios';
 import path from 'node:path';
+import { spawn } from 'node:child_process';
 import inquirer from 'inquirer';
-import semver, { re } from 'semver';
+import semver from 'semver';
 import log from '@cruise-cli/log';
 import { request, Package } from '@cruise-cli/utils';
 
 import Command from './command.js';
 
 class InitCommand extends Command {
-  // constructor(args) {
-  //   super(args);
-  // }
   params = [];
   init() {
     this.projectName = this._argv[1];
@@ -24,52 +22,62 @@ class InitCommand extends Command {
 
   async exec() {
     try {
+      if (!this.checkProjectName(this.projectName)) {
+        throw new Error(`项目名："${this.projectName}" 格式错误，可输入数字,字母,-, _`);
+      }
       await this.getTemplates();
       const templateInfo = await this.getTemplateInfo();
       if (templateInfo.templateId) this.downloadTemplate(templateInfo);
     } catch (e) {
-      console.log(e);
+      log.error(e);
     }
   }
-
+  checkProjectName(projectName) {
+    return projectName && /^[\w-]+$/.test(projectName);
+  }
   async getTemplateInfo() {
-    let localPath = process.cwd();
-    const checkCover = (answers) => !answers.hasOwnProperty('isConvert') || answers.isConvert;
+    let installPath = process.cwd();
     const { type } = await inquirer.prompt([
       {
         type: 'list',
         name: 'type',
         choices: ['project', 'component'],
-        message: '请选择初始化模板类型',
+        message: '请选择初始化模版类型',
       },
     ]);
+    const title = type === 'project' ? '项目' : '组件';
+    const checkCover = (answers) => !answers.hasOwnProperty('isConvert') || answers.isConvert;
     const info = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'name',
-        message: '请输入模版名',
-        validate: function (v) {
-          const done = this.async();
-          setTimeout(() => {
-            if (!/^[\w-]+$/.test(v)) {
-              done('可输入数字,字母,-, _');
-            } else {
-              done(null, true);
-            }
-          }, 0);
-        },
-      },
+      ...(this.projectName
+        ? []
+        : [
+            {
+              type: 'input',
+              name: 'name',
+              message: `请输入${title}名`,
+              validate: function (v) {
+                const done = this.async();
+                setTimeout(() => {
+                  if (this.checkProjectName(v)) {
+                    done(null, true);
+                  } else {
+                    done('可输入数字,字母,-, _');
+                  }
+                }, 0);
+              },
+            },
+          ]),
       {
         type: 'confirm',
         name: 'isConvert',
         default: false,
         when: (answers) => {
-          localPath = path.resolve(answers.name || '');
-          const isPath = fs.pathExistsSync(localPath);
-          const fileList = isPath ? fs.readdirSync(localPath) : [];
+          installPath = path.resolve(this.projectName || answers?.name || '');
+          const isPath = fs.pathExistsSync(installPath);
+          const fileList = isPath ? fs.readdirSync(installPath) : [];
           return fileList.length;
         },
-        message: '模版同名文件已存在，是否覆盖',
+        message: `已存在同名${title}，是否覆盖`,
       },
       {
         type: 'input',
@@ -78,9 +86,8 @@ class InitCommand extends Command {
         default: '1.0.1',
         when: (answers) => {
           const isContinue = checkCover(answers);
-          console.log(answers.isConvert, isContinue);
           if (isContinue) {
-            // fs.emptyDirSync(localPath);
+            // fs.emptyDirSync(installPath);
           }
           return isContinue;
         },
@@ -105,14 +112,14 @@ class InitCommand extends Command {
         message: '请选择模版',
       },
     ]);
-    return { type, ...info };
+    return { type, ...info, installPath };
   }
   async getTemplates() {
     const { data } = await request.get('/api/template');
     this.templates = data || [{ id: '623d9a7e2815cef7d8818d5e', name: 'vue', description: 'vue3+ts模版' }];
   }
-  async downloadTemplate(templateInfo) {
-    const template = this.templates.find(({ id }) => id === templateInfo?.templateId);
+  async downloadTemplate({ templateId, installPath }) {
+    const template = this.templates.find(({ id }) => id === templateId);
     if (!template.id) {
       return log.error('模版未找到');
     }
@@ -124,11 +131,12 @@ class InitCommand extends Command {
       packageVersion: template.version,
       storeDir: path.resolve(homePath, '.cruise-cli', 'templates'),
     });
-    console.log(pkg, '=', pkg.fileCachePath);
-    log.info('开始下载模版...');
+    log.info('开始下载安装模版...');
     await pkg.install();
-    fs.copySync(pkg.fileCachePath, path.resolve(process.cwd(), templateInfo.name));
-    log.info('模版下载成功');
+    fs.copySync(pkg.fileCachePath, installPath);
+    log.info('模版安装完成');
+    // spawn('npm', ['i'], { cwd: installPath, stdio: 'inherit' });
+    // await spawn('npm', ['run', 'dev'], { cwd: installPath, stdio: 'inherit' });
   }
 }
 
